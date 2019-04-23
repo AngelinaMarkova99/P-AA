@@ -38,7 +38,7 @@ public:
     }
 
     void print() { //вывод результата
-        if(result.size()) {
+        if(result.size() - 1) {
             for(int i = 0; i < result.size(); i++)
                 std:: cout <<(char)(result[i] + 'a');
             std:: cout << std:: endl;
@@ -47,10 +47,12 @@ public:
     }
 
     void algorithm(int first, int finish, std:: priority_queue <Priority> &queue, double common_way, std:: vector <double> &evristic) {
+        std:: vector <int> check(Alphabet, 0);
         int run = 1;
         while(run) {
             for(int j = 0; j < Alphabet; j++) //проходим по всем вершинам
-                if(graph[first][j] != 0) {    //если соседи, т.е существует ребро
+	        if(graph[first][j] != 0 && check[j] == 0) {    //если соседи, т.е существует ребро
+		    check[j] = 1;
                     Priority new_elem;
                     new_elem.characteristic = evristic[j];
                     new_elem.prior_vertex = graph[first][j] + common_way + new_elem.characteristic;
